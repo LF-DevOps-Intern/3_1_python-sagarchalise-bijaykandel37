@@ -1,14 +1,20 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
+import argparse
 import requests
+from typing import Text
+parser = argparse.ArgumentParser(description='url')
+parser.add_argument('--url', type=Text, help='download link')
+args= parser.parse_args()
 
-#this part of code downloads a photo from the link into the filename mentioned below: i.e. ViratKohli.png
-response = requests.get("https://www.bollywoodhungama.com/wp-content/uploads/2021/08/Virat-Kohli-opens-up-about-his-first-meeting-with-Anushka-Sharma-says-%E2%80%9CI-was-joking-around-with-her-and-that-really-connected%E2%80%9D-2.jpg")
-file = open("ViratKohli.png", "wb")
-file.write(response.content)
-file.close()
+def download(url):
+    responses = requests.get(url)
+    file = open("thisfile.html", "wb")
+    file.write(responses.content)
+    file.close()
+    print('the file has been saved')
 
-#this part of code downloads a html page and saves locally
-responses = requests.get("https://www.cricbuzz.com/profiles/1413/virat-kohli")
-file = open("ViratKohli.html", "wb")
-file.write(responses.content)
-file.close()
+if __name__ == '__main__':
+    download(args.url)
+
+
+
